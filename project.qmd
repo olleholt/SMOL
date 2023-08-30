@@ -1,7 +1,0 @@
----
-title: "Day1"
-format: html
-editor: visual
----
-
-## 
