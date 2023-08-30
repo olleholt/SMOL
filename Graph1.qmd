@@ -6,6 +6,7 @@ editor: visual
 
 ```{r}
 library(tidyverse)
+library(patchwork)
 ```
 
 ```{r}
@@ -29,9 +30,11 @@ join_subset <- join %>%
 ```
 
 ```{r}
-ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
+plot1 <- ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
   geom_line(aes(color = Sample_ID))
   
-ggplot(data = join_subset, aes(x = Sample_Date, y = K)) +
+plot2 <- ggplot(data = join_subset, aes(x = Sample_Date, y = K)) +
   geom_line(aes(color = Sample_ID))
+
+plot1/plot2
 ```
