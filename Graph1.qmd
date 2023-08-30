@@ -4,23 +4,14 @@ format: html
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
 ```{r}
-1 + 1
+library(tidyverse)
 ```
 
-You can add options to executable code like this
-
 ```{r}
-#| echo: false
-2 * 2
+SMOL_file_path <- "/courses/EDS214/group_project/SMOL/data/"
+PRM_data <- read_csv(file.path(SMOL_file_path, "RioMameyesPuenteRoto.csv"))
+BQ1_data <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca1-Bisley.csv"))
+BQ2 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca2-Bisley.csv"))
+BQ3 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca3-Bisley.csv"))
 ```
-
-The `echo: false` option disables the printing of code (only output is displayed).
