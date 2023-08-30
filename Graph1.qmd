@@ -15,3 +15,20 @@ BQ1_data <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca1-Bisley.csv"))
 BQ2 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca2-Bisley.csv"))
 BQ3 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca3-Bisley.csv"))
 ```
+
+```{r}
+join <- full_join(PRM_data, BQ1_data) %>% 
+  full_join(BQ2) %>% 
+  full_join(BQ3)
+```
+
+```{r}
+join_subset <- join %>% 
+  select(Sample_ID, Sample_Date, `NO3-N`, K) %>% 
+  group_by(Sample_ID)
+```
+
+```{r}
+ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
+  geom_line()
+```
