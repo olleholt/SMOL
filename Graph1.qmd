@@ -32,4 +32,6 @@ join_subset <- join %>%
 ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
   geom_line(aes(color = Sample_ID))
   
+ggplot(data = join_subset, aes(x = Sample_Date, y = K)) +
+  geom_line(aes(color = Sample_ID))
 ```
