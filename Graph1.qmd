@@ -43,11 +43,13 @@ join_subset <- join %>%
 plot1 <- ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
   geom_line(aes(color = Sample_ID)) +
   theme(legend.position = "none") +
-  theme_minimal()
+  theme_minimal() +
+  labs(x = "Years", y = "NO3-N")
   
 plot2 <- ggplot(data = join_subset, aes(x = Sample_Date, y = K)) +
   geom_line(aes(color = Sample_ID)) +
-  theme_minimal()
+  theme_minimal() +
+  labs(x = "Years", y = "K mg/l")
 
-subplot(style(plot1, showlegend = FALSE), plot2, nrows = 2, shareX = TRUE)
+subplot(style(plot1, showlegend = FALSE), plot2, nrows = 2, shareX = TRUE, titleY = TRUE)
 ```
