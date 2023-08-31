@@ -10,6 +10,7 @@ load the libraries
 library(tidyverse)
 library(patchwork)
 library(plotly)
+library(lubridate)
 ```
 
 ```{r}
@@ -33,6 +34,8 @@ join <- full_join(PRM_data, BQ1_data) %>%
 ```{r}
 join_subset <- join %>% 
   select(Sample_ID, Sample_Date, `NO3-N`, K) %>% 
+  mutate(year = lubridate::year(Sample_Date)) %>%
+  filter(year %in% c(1989:1995)) %>% 
   group_by(Sample_ID)
 ```
 
