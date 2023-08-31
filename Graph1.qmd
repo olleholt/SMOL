@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+load the libraries
+
 ```{r}
 library(tidyverse)
 library(patchwork)
