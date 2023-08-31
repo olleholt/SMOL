@@ -35,16 +35,19 @@ join <- full_join(PRM_data, BQ1_data) %>%
 join_subset <- join %>% 
   select(Sample_ID, Sample_Date, `NO3-N`, K) %>% 
   mutate(year = lubridate::year(Sample_Date)) %>%
-  filter(year %in% c(1989:1995)) %>% 
+  filter(year %in% c(1989:1994)) %>% 
   group_by(Sample_ID)
 ```
 
 ```{r}
 plot1 <- ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
-  geom_line(aes(color = Sample_ID))
+  geom_line(aes(color = Sample_ID)) +
+  theme(legend.position = "none") +
+  theme_minimal()
   
 plot2 <- ggplot(data = join_subset, aes(x = Sample_Date, y = K)) +
-  geom_line(aes(color = Sample_ID))
+  geom_line(aes(color = Sample_ID)) +
+  theme_minimal()
 
-subplot(plot1, plot2, nrows = 2, shareX = TRUE)
+subplot(style(plot1, showlegend = FALSE), plot2, nrows = 2, shareX = TRUE)
 ```
