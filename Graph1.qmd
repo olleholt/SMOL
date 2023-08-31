@@ -7,6 +7,7 @@ editor: visual
 load the libraries
 
 ```{r}
+# load packages into R working environment in order to do data wrangling and plotting
 library(tidyverse)
 library(patchwork)
 library(plotly)
@@ -14,25 +15,35 @@ library(lubridate)
 ```
 
 ```{r}
+# establish the file path in order to find the data that is stored in Taylor server
 SMOL_file_path <- "/courses/EDS214/group_project/SMOL/data/"
+
+# load .csv that has data stored for PRM Sample_ID
 PRM_data <- read_csv(file.path(SMOL_file_path, "RioMameyesPuenteRoto.csv"))
+# show first 6 rows of data of PRM data to be able to look at data set
 head(PRM_data)
+# load .csv that has data stored for BQ1 Sample_ID
 BQ1_data <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca1-Bisley.csv"))
-head(BQ1_data)
-BQ2 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca2-Bisley.csv"))
-head(BQ2)
-BQ3 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca3-Bisley.csv"))
+# load .csv that has data stored for BQ2 Sample_ID
+BQ2_data <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca2-Bisley.csv"))
+# load .csv that has data stored for BQ3 Sample_ID
+BQ3_data <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca3-Bisley.csv"))
 head(BQ3)
 ```
 
 ```{r}
-join <- full_join(PRM_data, BQ1_data) %>% 
-  full_join(BQ2) %>% 
-  full_join(BQ3)
+# execute a full-join in order to combine the 4 data sites into a single dataset
+LEF_full <- full_join(PRM_data, BQ1_data) %>% 
+  full_join(BQ2_data) %>% 
+  full_join(BQ3_data)
 ```
 
 ```{r}
-join_subset <- join %>% 
+# create a subset of LEF_full that retains the Sample_ID, Sample_Date, NO3-N, and K columns
+# add an additional column that calculates the year of the sample from a year-month-day date
+# filter to only keep data observations from 1989 to 1994
+# group data by which Sample_ID
+LEF_subset <- LEF_full %>% 
   select(Sample_ID, Sample_Date, `NO3-N`, K) %>% 
   mutate(year = lubridate::year(Sample_Date)) %>%
   filter(year %in% c(1989:1994)) %>% 
@@ -40,16 +51,20 @@ join_subset <- join %>%
 ```
 
 ```{r}
-plot1 <- ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
+# create a line plot that shows the nitrate concentrations of the 4 watersheds by year
+nitrate_graph <- ggplot(data = LEF_subset, aes(x = Sample_Date, y = `NO3-N`)) +
   geom_line(aes(color = Sample_ID)) +
   theme(legend.position = "none") +
   theme_minimal() +
-  labs(x = "Years", y = "NO3-N")
+  labs(x = "Years", y = "Nitrate mg/l") 
   
-plot2 <- ggplot(data = join_subset, aes(x = Sample_Date, y = K)) +
+  
+# create a line plot that shows the potassium concentrations of the 4 watersheds by year
+potassium_graph <- ggplot(data = LEF_subset, aes(x = Sample_Date, y = K)) +
   geom_line(aes(color = Sample_ID)) +
   theme_minimal() +
-  labs(x = "Years", y = "K mg/l")
+  labs(x = "Years", y = "Potassium ug/l")
 
-subplot(style(plot1, showlegend = FALSE), plot2, nrows = 2, shareX = TRUE, titleY = TRUE)
+# stack the nitrate and potassium graphs using the same x-axis 
+subplot(style(nitrate_graph, showlegend = FALSE), potassium_graph, nrows = 2, shareX = TRUE, titleY = TRUE)
 ```
