@@ -9,14 +9,19 @@ load the libraries
 ```{r}
 library(tidyverse)
 library(patchwork)
+library(plotly)
 ```
 
 ```{r}
 SMOL_file_path <- "/courses/EDS214/group_project/SMOL/data/"
 PRM_data <- read_csv(file.path(SMOL_file_path, "RioMameyesPuenteRoto.csv"))
+head(PRM_data)
 BQ1_data <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca1-Bisley.csv"))
+head(BQ1_data)
 BQ2 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca2-Bisley.csv"))
+head(BQ2)
 BQ3 <- read_csv(file.path(SMOL_file_path, "QuebradaCuenca3-Bisley.csv"))
+head(BQ3)
 ```
 
 ```{r}
@@ -38,5 +43,5 @@ plot1 <- ggplot(data = join_subset, aes(x = Sample_Date, y = `NO3-N`)) +
 plot2 <- ggplot(data = join_subset, aes(x = Sample_Date, y = K)) +
   geom_line(aes(color = Sample_ID))
 
-plot1/plot2
+subplot(plot1, plot2, nrows = 2, shareX = TRUE)
 ```
