@@ -17,7 +17,7 @@ library(lubridate)
 #pull the data
 SMOL_file_path_1 <- "/courses/EDS214/group_project/SMOL/data/"
 SMOL_file_path_2 <- "/courses/EDS214/group_project/SMOL/data/data2/Data"
-Bisley_rain_data <- read_csv(file.path(SMOL_file_path, "weatherDat.csv"))
+Bisley_rain_data <- read_csv(file.path(SMOL_file_path_2, "weatherDat.csv"))
 head(Bisley_rain_data)
 
 BQ1_data <- read_csv(file.path(SMOL_file_path_1, "QuebradaCuenca1-Bisley.csv"))
