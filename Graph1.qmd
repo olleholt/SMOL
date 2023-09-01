@@ -56,15 +56,22 @@ nitrate_graph <- ggplot(data = LEF_subset, aes(x = Sample_Date, y = `NO3-N`)) +
   geom_line(aes(color = Sample_ID)) +
   theme(legend.position = "none") +
   theme_minimal() +
-  labs(x = "Years", y = "Nitrate mg/l") 
+  labs(x = "Years", y = "Nitrate mg/l") +
+  theme(axis.title.x = element_blank(), 
+        axis.text.x = element_blank(),
+        )
   
   
 # create a line plot that shows the potassium concentrations of the 4 watersheds by year
 potassium_graph <- ggplot(data = LEF_subset, aes(x = Sample_Date, y = K)) +
-  geom_line(aes(color = Sample_ID)) +
+  geom_line(aes(color = Sample_ID), 
+            show.legend = FALSE) +
   theme_minimal() +
   labs(x = "Years", y = "Potassium ug/l")
 
-# stack the nitrate and potassium graphs using the same x-axis 
-subplot(style(nitrate_graph, showlegend = FALSE), potassium_graph, nrows = 2, shareX = TRUE, titleY = TRUE)
+# stack the graphs on top of each other
+N_K_plot <- (nitrate_graph/potassium_graph)
+
+#export graph
+ggsave("N_K_plot.png", height = 4, width = 6)
 ```
