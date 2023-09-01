@@ -62,13 +62,15 @@ BQ_rain_join <- full_join(Bisley_rain_subset, BQ_subset)
 ```
 
 ```{r}
-plotQ2 <- ggplot(data = BQ_rain_join, aes(x = year, y = mean_nitrate)) +
+plotQ2_nitrate <- ggplot(data = BQ_rain_join, aes(x = year, y = mean_nitrate)) +
   geom_line()
 
 plotQ2_rain <- ggplot(data = BQ_rain_join, aes(x = year, y = Bisley_yearly)) +
   geom_line()
 
-plotQ2
+plotQ2_nitrate
 
 plotQ2_rain
+
+subplot(plotQ2, plotQ2_rain, nrows = 2, shareX = TRUE)
 ```
