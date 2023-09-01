@@ -83,5 +83,7 @@ plotQ2_rain
 
 (plotQ2_nitrate/plotQ2_rain)
 
+cor_BQ <- cor(BQ_rain_join$mean_nitrate, BQ_rain_join$Bisley_yearly)
+
 #subplot(plotQ2, plotQ2_rain, nrows = 2, shareX = TRUE, titleX = TRUE, titleY = TRUE)
 ```
