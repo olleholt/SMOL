@@ -81,9 +81,11 @@ plotQ2_nitrate
 
 plotQ2_rain
 
-(plotQ2_nitrate/plotQ2_rain)
+final_Q2_plot <- (plotQ2_nitrate/plotQ2_rain)
 
 cor_BQ <- cor(BQ_rain_join$mean_nitrate, BQ_rain_join$Bisley_yearly)
+
+ggsave(file = "Question2_SMOL_plot.png", plot = final_Q2_plot, height = 4, width = 6)
 
 #subplot(plotQ2, plotQ2_rain, nrows = 2, shareX = TRUE, titleX = TRUE, titleY = TRUE)
 ```
